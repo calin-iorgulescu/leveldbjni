@@ -378,6 +378,7 @@ public class DBTest extends TestCase {
 
     }
 
+    /*
     @Test
     public void testCompactRanges() throws IOException, InterruptedException, DBException {
         Options options = new Options().createIfMissing(true);
@@ -426,6 +427,7 @@ public class DBTest extends TestCase {
         db.resumeCompactions();
         db.close();
     }
+    */
 
     public void assertEquals(byte[] arg1, byte[] arg2) {
         assertTrue(Arrays.equals(arg1, arg2));

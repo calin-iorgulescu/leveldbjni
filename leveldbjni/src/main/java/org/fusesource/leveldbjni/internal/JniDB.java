@@ -211,22 +211,29 @@ public class JniDB implements DB {
         db.compactRange(begin, end);
     }
 
-//
-//  Using a fork of leveldb with db Suspend / Resume methods to avoid
-//  having to callback into java.
-//
+////
+////  Using a fork of leveldb with db Suspend / Resume methods to avoid
+////  having to callback into java.
+////
+//    public void suspendCompactions() throws InterruptedException {
+//        if( db==null ) {
+//            throw new DBException("Closed");
+//        }
+//        db.suspendCompactions();
+//    }
+//    public void resumeCompactions() {
+//        if( db==null ) {
+//            throw new DBException("Closed");
+//        }
+//        db.resumeCompactions();
+//    }
     public void suspendCompactions() throws InterruptedException {
-        if( db==null ) {
-            throw new DBException("Closed");
-        }
-        db.suspendCompactions();
+        throw new UnsupportedOperationException("PebblesDB does not allow suspending compactions.");
     }
     public void resumeCompactions() {
-        if( db==null ) {
-            throw new DBException("Closed");
-        }
-        db.resumeCompactions();
+        throw new UnsupportedOperationException("PebblesDB does not allow resuming compactions.");
     }
+
 
 //    private static class Suspension {
 //        static long env = Util.EnvJNI.Default();
