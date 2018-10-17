@@ -133,10 +133,23 @@ struct JNILogger : public leveldb::Logger {
 
 
 #ifdef __cplusplus
+typedef struct leveldb::Slice Slice;
+
 extern "C" {
+#else
+
+typedef struct Slice {
+  const char *data_;
+  size_t size_;
+} Slice;
+
 #endif
 
 void buffer_copy(const void *source, size_t source_pos, void *dest, size_t dest_pos, size_t length);
+
+void slice_set_data(Slice *lpSlice, const char *data);
+
+void slice_set_size(Slice *lpSlice, size_t size);
 
 #ifdef __cplusplus
 } /* extern "C" */

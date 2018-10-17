@@ -25,4 +25,5 @@ libleveldbjni_la_SOURCES =  src/leveldbjni.cpp\
   src/leveldbjni_stats.cpp\
   src/leveldbjni_structs.cpp\
   src/buffer.c\
+  src/slice.c\
   src/hawtjni.c

@@ -39,6 +39,7 @@ import static org.fusesource.hawtjni.runtime.ClassFlag.STRUCT;
 import static org.fusesource.hawtjni.runtime.FieldFlag.CONSTANT;
 import static org.fusesource.hawtjni.runtime.MethodFlag.CONSTANT_INITIALIZER;
 import static org.fusesource.hawtjni.runtime.MethodFlag.CPP_DELETE;
+import static org.fusesource.hawtjni.runtime.FieldFlag.SETTER_NONMEMBER;
 
 /**
  * Provides a java interface to the C++ leveldb::Slice class.
@@ -80,9 +81,9 @@ class NativeSlice {
     }
     
     
-    @JniField(cast="const char*")
+    @JniField(cast="const char*", getter="data()", setter="slice_set_data()", flags={SETTER_NONMEMBER})
     private long data_;
-    @JniField(cast="size_t")
+    @JniField(cast="size_t", getter="size()", setter="slice_set_size()", flags={SETTER_NONMEMBER})
     private long size_;
 
     public NativeSlice() {

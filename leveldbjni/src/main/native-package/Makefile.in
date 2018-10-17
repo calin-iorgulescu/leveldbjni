@@ -156,7 +156,7 @@ libleveldbjni_la_LIBADD =
 am__dirstamp = $(am__leading_dot)dirstamp
 am_libleveldbjni_la_OBJECTS = src/leveldbjni.lo \
 	src/leveldbjni_stats.lo src/leveldbjni_structs.lo \
-	src/buffer.lo src/hawtjni.lo
+	src/buffer.lo src/slice.lo src/hawtjni.lo
 libleveldbjni_la_OBJECTS = $(am_libleveldbjni_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
@@ -400,6 +400,7 @@ libleveldbjni_la_SOURCES = src/leveldbjni.cpp\
   src/leveldbjni_stats.cpp\
   src/leveldbjni_structs.cpp\
   src/buffer.c\
+  src/slice.c\
   src/hawtjni.c
 
 all: all-am
@@ -495,6 +496,7 @@ src/$(am__dirstamp):
 src/leveldbjni.lo: src/$(am__dirstamp)
 src/leveldbjni_stats.lo: src/$(am__dirstamp)
 src/leveldbjni_structs.lo: src/$(am__dirstamp)
+src/buffer.lo: src/$(am__dirstamp)
 src/buffer.lo: src/$(am__dirstamp)
 src/hawtjni.lo: src/$(am__dirstamp)
 
