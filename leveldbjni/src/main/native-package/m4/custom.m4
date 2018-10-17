@@ -43,7 +43,7 @@ AC_DEFUN([CUSTOM_M4_SETUP],
     CFLAGS="$CFLAGS -I${withval}/include"
     CXXFLAGS="$CXXFLAGS -I${withval}/include"
     AC_SUBST(CXXFLAGS)
-    LDFLAGS="$LDFLAGS -lleveldb -L${withval}"
+    LDFLAGS="$LDFLAGS -lpebblesdb -L${withval}"
     AC_SUBST(LDFLAGS)
   ])
 
