@@ -210,38 +210,44 @@ The following worked for me on:
 
 ### Build Procedure
 
-Then download the snappy, leveldb, and leveldbjni project source code:
+Download and compile the snappy project source code.  This produces a static library.
 
     wget http://snappy.googlecode.com/files/snappy-1.0.5.tar.gz
     tar -zxvf snappy-1.0.5.tar.gz
-    git clone git://github.com/chirino/leveldb.git
-    git clone git://github.com/fusesource/leveldbjni.git
     export SNAPPY_HOME=`cd snappy-1.0.5; pwd`
-    export LEVELDB_HOME=`cd leveldb; pwd`
-    export LEVELDBJNI_HOME=`cd leveldbjni; pwd`
-
-<!-- In cygwin that would be
-    export SNAPPY_HOME=$(cygpath -w `cd snappy-1.0.5; pwd`)
-    export LEVELDB_HOME=$(cygpath -w `cd leveldb; pwd`)
-    export LEVELDBJNI_HOME=$(cygpath -w `cd leveldbjni; pwd`)
--->
-
-Compile the snappy project.  This produces a static library.
 
     cd ${SNAPPY_HOME}
     ./configure --disable-shared --with-pic
     make
     
-Patch and Compile the leveldb project.  This produces a static library. 
-    
-    cd ${LEVELDB_HOME}
-    export LIBRARY_PATH=${SNAPPY_HOME}
-    export C_INCLUDE_PATH=${LIBRARY_PATH}
-    export CPLUS_INCLUDE_PATH=${LIBRARY_PATH}
-    git apply ../leveldbjni/leveldb.patch
-    make libleveldb.a
+If snappy is already installed (e.g., libsnappy-dev on Ubuntu):
 
-Now use maven to build the leveldbjni project. 
+    export SNAPPY_HOME=`pkg-config --variable=libdir snappy`
+
+Download the leveldbjni project source code.
+
+    git clone git://github.com/fusesource/leveldbjni.git
+    export LEVELDBJNI_HOME=`cd leveldbjni; pwd`
+
+Download, Patch and Compile the pebblesdb project source code.  This produces a static library.
+    
+    git clone git@github.com:utsaslab/pebblesdb.git
+    cd pebblesdb/src
+    git apply ../leveldbjni/pebblesdb.patch
+    cd ..
+    mkdir -p deploy
+    mkdir -p build
+    cd build
+    cmake -DCMAKE_INSTALL_PREFIX:PATH=$(cd ../deploy ; pwd) ..
+    make -j8
+    make install
+    cd ../deploy/include
+    ln -s pebblesdb leveldb
+    cd ../../..
+
+    export LEVELDB_HOME=`cd pebblesdb/deploy; pwd`
+
+Now use maven to build the leveldbjni project.
     
     cd ${LEVELDBJNI_HOME}
     mvn clean install -P download -P ${platform}
